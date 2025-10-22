@@ -1,5 +1,4 @@
--- Medicine Inventory Management System Database Setup
--- Drop database if exists and create fresh
+
 DROP DATABASE IF EXISTS medicine_inventory;
 CREATE DATABASE medicine_inventory;
 USE medicine_inventory;
@@ -165,11 +164,7 @@ CREATE TABLE stock_movement_log (
     INDEX idx_movement_date (movement_date)
 );
 
--- ============================================
--- TRIGGERS
--- ============================================
 
--- Trigger to update order total_amount when order items are inserted/updated
 DELIMITER //
 CREATE TRIGGER trg_update_order_total_after_insert
 AFTER INSERT ON order_items
@@ -210,7 +205,6 @@ BEGIN
     WHERE order_id = OLD.order_id;
 END//
 
--- Trigger to log order status changes
 CREATE TRIGGER trg_log_order_status_change
 AFTER UPDATE ON orders
 FOR EACH ROW
@@ -222,7 +216,6 @@ BEGIN
     END IF;
 END//
 
--- Trigger to update order dates based on status
 CREATE TRIGGER trg_update_order_dates
 BEFORE UPDATE ON orders
 FOR EACH ROW
@@ -240,11 +233,7 @@ END//
 
 DELIMITER ;
 
--- ============================================
--- SAMPLE DATA
--- ============================================
 
--- Insert sample medicine categories
 INSERT INTO medicine_categories (category_name, description) VALUES
 ('Antibiotics', 'Medications used to treat bacterial infections'),
 ('Pain Relief', 'Analgesics and pain management medications'),
