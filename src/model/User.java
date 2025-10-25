@@ -21,14 +21,13 @@ public class User {
         // Default constructor
     }
     
-    public User(String username, String password, String userType, String fullName, String email) {
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-        this.fullName = fullName;
-        this.email = email;
-        this.isActive = true;
-    }
+    public User(int userId, String username, String password, String role, String email) {
+    this.userId = userId;
+    this.username = username;
+    this.password = password;
+    this.email = email;
+}
+
     
     // Getters and Setters
     public int getUserId() {
