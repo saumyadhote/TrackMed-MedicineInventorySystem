@@ -1,10 +1,103 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
-// Main Hospital Dashboard
+// Medicine class with stock monitoring
+class Medicine {
+    private String name;
+    private int stock;
+    private int lowStockThreshold;
+
+    public Medicine(String name, int stock, int lowStockThreshold) {
+        this.name = name;
+        this.stock = stock;
+        this.lowStockThreshold = lowStockThreshold;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+        checkLowStock();
+    }
+
+    private void checkLowStock() {
+        if (stock <= lowStockThreshold) {
+            notifySupplier();
+        }
+    }
+
+    private void notifySupplier() {
+        // Simple popup notification
+        JOptionPane.showMessageDialog(null,
+            "Stock of " + name + " is low (" + stock + " units). Notify supplier!");
+        // TODO: Replace with email/SMS notification
+    }
+}
+
+// Panel to browse medicines
+class BrowseMedicinesPanel extends JPanel {
+    private List<Medicine> medicines;
+    private List<JLabel> stockLabels;
+
+    public BrowseMedicinesPanel() {
+        medicines = new ArrayList<>();
+        stockLabels = new ArrayList<>();
+
+        // Sample medicines
+        medicines.add(new Medicine("Paracetamol", 50, 10));
+        medicines.add(new Medicine("Amoxicillin", 30, 5));
+        medicines.add(new Medicine("Ibuprofen", 20, 5));
+
+        setLayout(new GridLayout(medicines.size(), 2, 5, 5));
+
+        for (Medicine med : medicines) {
+            JLabel nameLabel = new JLabel(med.getName() + " - Stock: " + med.getStock());
+            stockLabels.add(nameLabel);
+
+            JButton buyButton = new JButton("Buy 1");
+            buyButton.addActionListener(e -> {
+                if (med.getStock() > 0) {
+                    med.setStock(med.getStock() - 1);
+                    nameLabel.setText(med.getName() + " - Stock: " + med.getStock());
+                } else {
+                    JOptionPane.showMessageDialog(null, med.getName() + " is out of stock!");
+                }
+            });
+
+            add(nameLabel);
+            add(buyButton);
+        }
+    }
+}
+
+// Placeholder panels
+class ShoppingCartPanel extends JPanel {
+    public ShoppingCartPanel() {
+        add(new JLabel("Shopping Cart Panel"));
+    }
+}
+
+class OrderHistoryPanel extends JPanel {
+    public OrderHistoryPanel() {
+        add(new JLabel("Order History Panel"));
+    }
+}
+
+class ReportsPanel extends JPanel {
+    public ReportsPanel() {
+        add(new JLabel("Reports Panel"));
+    }
+}
+
+// Main Dashboard
 public class HospitalDashboard extends JFrame {
 
     private JPanel contentPanel; // center panel to switch views
@@ -64,8 +157,6 @@ public class HospitalDashboard extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new HospitalDashboard().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new HospitalDashboard().setVisible(true));
     }
 }

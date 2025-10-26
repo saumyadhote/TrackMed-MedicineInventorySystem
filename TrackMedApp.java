@@ -1,7 +1,8 @@
+
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 
 public class TrackMedApp {
 
@@ -32,23 +33,33 @@ public class TrackMedApp {
 
             JLabel titleLabel = new JLabel("Login Here", SwingConstants.CENTER);
             titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-            gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.gridwidth = 2;
             panel.add(titleLabel, gbc);
 
-            gbc.gridwidth = 1; gbc.gridy = 1; gbc.gridx = 0;
+            gbc.gridwidth = 1;
+            gbc.gridy = 1;
+            gbc.gridx = 0;
             panel.add(new JLabel("Username:"), gbc);
             JTextField usernameField = new JTextField(15);
-            gbc.gridx = 1; panel.add(usernameField, gbc);
+            gbc.gridx = 1;
+            panel.add(usernameField, gbc);
 
-            gbc.gridy = 2; gbc.gridx = 0;
+            gbc.gridy = 2;
+            gbc.gridx = 0;
             panel.add(new JLabel("Password:"), gbc);
             JPasswordField passwordField = new JPasswordField(15);
-            gbc.gridx = 1; panel.add(passwordField, gbc);
+            gbc.gridx = 1;
+            panel.add(passwordField, gbc);
 
             JButton loginButton = new JButton("Login");
             loginButton.setPreferredSize(new Dimension(80, 25));
-            gbc.gridy = 3; gbc.gridx = 0; gbc.gridwidth = 2;
-            gbc.anchor = GridBagConstraints.CENTER; panel.add(loginButton, gbc);
+            gbc.gridy = 3;
+            gbc.gridx = 0;
+            gbc.gridwidth = 2;
+            gbc.anchor = GridBagConstraints.CENTER;
+            panel.add(loginButton, gbc);
 
             add(panel);
             setVisible(true);
@@ -106,19 +117,34 @@ public class TrackMedApp {
 
                 switch (name) {
                     case "Browse Medicines":
-                        btn.addActionListener(e -> { dispose(); new MainAppFrame(); });
+                        btn.addActionListener(e -> {
+                            dispose();
+                            new MainAppFrame();
+                        });
                         break;
                     case "My Cart":
-                        btn.addActionListener(e -> { dispose(); new MyCartFrame(); });
+                        btn.addActionListener(e -> {
+                            dispose();
+                            new MyCartFrame();
+                        });
                         break;
                     case "Order History":
-                        btn.addActionListener(e -> { dispose(); new OrderHistoryFrame(); });
+                        btn.addActionListener(e -> {
+                            dispose();
+                            new OrderHistoryFrame();
+                        });
                         break;
                     case "Reports":
-                        btn.addActionListener(e -> { dispose(); new ReportsFrame(); });
+                        btn.addActionListener(e -> {
+                            dispose();
+                            new ReportsFrame();
+                        });
                         break;
                     case "Logout":
-                        btn.addActionListener(e -> { dispose(); new LoginFrame(); });
+                        btn.addActionListener(e -> {
+                            dispose();
+                            new LoginFrame();
+                        });
                         break;
                 }
             }
@@ -163,12 +189,16 @@ public class TrackMedApp {
             JButton backBtn = new JButton("Back to Dashboard");
 
             Dimension btnSize = new Dimension(130, 30);
-            viewBtn.setPreferredSize(btnSize); addBtn.setPreferredSize(btnSize);
-            editBtn.setPreferredSize(btnSize); deleteBtn.setPreferredSize(btnSize);
+            viewBtn.setPreferredSize(btnSize);
+            addBtn.setPreferredSize(btnSize);
+            editBtn.setPreferredSize(btnSize);
+            deleteBtn.setPreferredSize(btnSize);
             backBtn.setPreferredSize(new Dimension(150, 30));
 
-            buttonPanel.add(viewBtn); buttonPanel.add(addBtn);
-            buttonPanel.add(editBtn); buttonPanel.add(deleteBtn);
+            buttonPanel.add(viewBtn);
+            buttonPanel.add(addBtn);
+            buttonPanel.add(editBtn);
+            buttonPanel.add(deleteBtn);
             buttonPanel.add(backBtn);
 
             add(buttonPanel, BorderLayout.SOUTH);
@@ -178,7 +208,10 @@ public class TrackMedApp {
             addBtn.addActionListener(e -> addNewEntry());
             editBtn.addActionListener(e -> editEntry());
             deleteBtn.addActionListener(e -> deleteEntry());
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> {
+                dispose();
+                new UserDashboardFrame();
+            });
 
             setVisible(true);
         }
@@ -200,7 +233,7 @@ public class TrackMedApp {
 
             int option = JOptionPane.showConfirmDialog(this, fields, "Add New Medication", JOptionPane.OK_CANCEL_OPTION);
             if (option == JOptionPane.OK_OPTION) {
-                model.addRow(new Object[]{ medId.getText(), name.getText(), expiry.getText(), qty.getText(), reorder.getText() });
+                model.addRow(new Object[]{medId.getText(), name.getText(), expiry.getText(), qty.getText(), reorder.getText()});
             }
         }
 
@@ -251,20 +284,21 @@ public class TrackMedApp {
 
     // ---------------- MY CART ----------------
     static class MyCartFrame extends JFrame {
+
         public MyCartFrame() {
             setTitle("TrackMed - My Cart");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(700, 500);
             setLocationRelativeTo(null);
-            setLayout(new BorderLayout(10,10));
+            setLayout(new BorderLayout(10, 10));
 
             JLabel titleLabel = new JLabel("My Cart", SwingConstants.CENTER);
             titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
             add(titleLabel, BorderLayout.NORTH);
 
             JTable table = new JTable(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Medication ID", "Name", "Quantity", "Price"}
+                    new Object[][]{},
+                    new String[]{"Medication ID", "Name", "Quantity", "Price"}
             ));
             add(new JScrollPane(table), BorderLayout.CENTER);
 
@@ -275,7 +309,10 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> {
+                dispose();
+                new UserDashboardFrame();
+            });
 
             setVisible(true);
         }
@@ -283,19 +320,20 @@ public class TrackMedApp {
 
     // ---------------- ORDER HISTORY ----------------
     static class OrderHistoryFrame extends JFrame {
+
         public OrderHistoryFrame() {
             setTitle("TrackMed - Order History");
-            setSize(700,500);
+            setSize(700, 500);
             setLocationRelativeTo(null);
-            setLayout(new BorderLayout(10,10));
+            setLayout(new BorderLayout(10, 10));
 
             JLabel titleLabel = new JLabel("Order History", SwingConstants.CENTER);
             titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
             add(titleLabel, BorderLayout.NORTH);
 
             JTable table = new JTable(new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Order ID", "Date", "Status", "Total"}
+                    new Object[][]{},
+                    new String[]{"Order ID", "Date", "Status", "Total"}
             ));
             add(new JScrollPane(table), BorderLayout.CENTER);
 
@@ -304,7 +342,10 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> {
+                dispose();
+                new UserDashboardFrame();
+            });
 
             setVisible(true);
         }
@@ -312,11 +353,12 @@ public class TrackMedApp {
 
     // ---------------- REPORTS ----------------
     static class ReportsFrame extends JFrame {
+
         public ReportsFrame() {
             setTitle("TrackMed - Reports");
-            setSize(700,500);
+            setSize(700, 500);
             setLocationRelativeTo(null);
-            setLayout(new BorderLayout(10,10));
+            setLayout(new BorderLayout(10, 10));
 
             JLabel titleLabel = new JLabel("Reports", SwingConstants.CENTER);
             titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
@@ -331,7 +373,10 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> {
+                dispose();
+                new UserDashboardFrame();
+            });
 
             setVisible(true);
         }
@@ -358,10 +403,12 @@ public class TrackMedApp {
                 }
             };
 
+            // Copy columns from shared model
             for (int col = 0; col < sharedModel.getColumnCount(); col++) {
                 model.addColumn(sharedModel.getColumnName(col));
             }
 
+            // Copy data from shared model
             for (int row = 0; row < sharedModel.getRowCount(); row++) {
                 Object[] rowData = new Object[sharedModel.getColumnCount()];
                 for (int col = 0; col < sharedModel.getColumnCount(); col++) {
@@ -371,15 +418,41 @@ public class TrackMedApp {
             }
 
             JTable table = new JTable(model);
+
+            // Low stock highlighting
+            table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                        boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    try {
+                        int quantity = Integer.parseInt(table.getValueAt(row, 3).toString());
+                        if (quantity <= 5) { // low stock threshold
+                            c.setBackground(Color.PINK);
+                        } else {
+                            c.setBackground(Color.WHITE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        c.setBackground(Color.WHITE); // fallback if value not numeric
+                    }
+                    return c;
+                }
+            });
+
             add(new JScrollPane(table), BorderLayout.CENTER);
 
+            // Bottom panel with buttons
             JButton saveBtn = new JButton("Save Quantity Changes");
+            JButton requestRestockBtn = new JButton("Request Restock");
             JButton backBtn = new JButton("Back to Login");
+
             JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             bottomPanel.add(saveBtn);
+            bottomPanel.add(requestRestockBtn);
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
+            // Save quantity changes
             saveBtn.addActionListener(e -> {
                 for (int row = 0; row < model.getRowCount(); row++) {
                     sharedModel.setValueAt(model.getValueAt(row, 3), row, 3);
@@ -387,9 +460,35 @@ public class TrackMedApp {
                 JOptionPane.showMessageDialog(this, "Quantities updated successfully.");
             });
 
-            backBtn.addActionListener(e -> { dispose(); new LoginFrame(); });
+            // Request restock for low stock items
+            requestRestockBtn.addActionListener(e -> {
+                boolean restockSent = false;
+                for (int row = 0; row < model.getRowCount(); row++) {
+                    try {
+                        int quantity = Integer.parseInt(model.getValueAt(row, 3).toString());
+                        if (quantity <= 5) {
+                            String medName = model.getValueAt(row, 0).toString();
+                            JOptionPane.showMessageDialog(this, "Restock request sent for " + medName);
+                            restockSent = true;
+                            // TODO: Integrate backend/email API to notify supplier
+                        }
+                    } catch (NumberFormatException ex) {
+                        // Ignore non-numeric cells
+                    }
+                }
+                if (!restockSent) {
+                    JOptionPane.showMessageDialog(this, "No items need restock.");
+                }
+            });
+
+            // Back to login
+            backBtn.addActionListener(e -> {
+                dispose();
+                new LoginFrame();
+            });
 
             setVisible(true);
         }
     }
+
 }
