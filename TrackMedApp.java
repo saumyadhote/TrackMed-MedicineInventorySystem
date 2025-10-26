@@ -52,20 +52,23 @@ public class TrackMedApp {
             add(panel);
             setVisible(true);
 
+            final JFrame self = this;
             loginButton.addActionListener(e -> {
                 String user = usernameField.getText();
                 String pass = new String(passwordField.getPassword());
 
                 if (user.equals("user") && pass.equals("1234")) {
-                    JOptionPane.showMessageDialog(this, "Login Successful!");
-                    dispose();
+                    JOptionPane.showMessageDialog(self, "Login Successful!");
+                    Navigation.push(self);
+                    self.dispose();
                     new UserDashboardFrame();
                 } else if (user.equals("customer") && pass.equals("5555")) {
-                    JOptionPane.showMessageDialog(this, "Customer Login Successful!");
-                    dispose();
+                    JOptionPane.showMessageDialog(self, "Customer Login Successful!");
+                    Navigation.push(self);
+                    self.dispose();
                     new CustomerViewFrame();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Invalid Credentials");
+                    JOptionPane.showMessageDialog(self, "Invalid Credentials");
                 }
             });
         }
@@ -96,6 +99,8 @@ public class TrackMedApp {
             String[] btnNames = {"Browse Medicines", "My Cart", "Order History", "Reports", "Logout"};
             Dimension btnSize = new Dimension(200, 50);
 
+            final JFrame self = this;
+
             for (String name : btnNames) {
                 JButton btn = new JButton(name);
                 btn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -105,19 +110,19 @@ public class TrackMedApp {
 
                 switch (name) {
                     case "Browse Medicines":
-                        btn.addActionListener(e -> { dispose(); new MainAppFrame(); });
+                        btn.addActionListener(e -> { Navigation.push(self); self.dispose(); new MainAppFrame(); });
                         break;
                     case "My Cart":
-                        btn.addActionListener(e -> { dispose(); new MyCartFrame(); });
+                        btn.addActionListener(e -> { Navigation.push(self); self.dispose(); new MyCartFrame(); });
                         break;
                     case "Order History":
-                        btn.addActionListener(e -> { dispose(); new OrderHistoryFrame(); });
+                        btn.addActionListener(e -> { Navigation.push(self); self.dispose(); new OrderHistoryFrame(); });
                         break;
                     case "Reports":
-                        btn.addActionListener(e -> { dispose(); new ReportsFrame(); });
+                        btn.addActionListener(e -> { Navigation.push(self); self.dispose(); new ReportsFrame(); });
                         break;
                     case "Logout":
-                        btn.addActionListener(e -> { dispose(); new LoginFrame(); });
+                        btn.addActionListener(e -> { Navigation.clear(); self.dispose(); new LoginFrame(); });
                         break;
                 }
             }
@@ -173,11 +178,12 @@ public class TrackMedApp {
             add(buttonPanel, BorderLayout.SOUTH);
 
             // Button actions
-            viewBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "Displaying full inventory..."));
+            final JFrame self = this;
+            viewBtn.addActionListener(e -> JOptionPane.showMessageDialog(self, "Displaying full inventory..."));
             addBtn.addActionListener(e -> addNewEntry());
             editBtn.addActionListener(e -> editEntry());
             deleteBtn.addActionListener(e -> deleteEntry());
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> { Navigation.goBack(self); });
 
             setVisible(true);
         }
@@ -274,7 +280,8 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            final JFrame self = this;
+            backBtn.addActionListener(e -> { Navigation.goBack(self); });
 
             setVisible(true);
         }
@@ -303,7 +310,8 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            final JFrame self = this;
+            backBtn.addActionListener(e -> { Navigation.goBack(self); });
 
             setVisible(true);
         }
@@ -330,7 +338,8 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            final JFrame self = this;
+            backBtn.addActionListener(e -> { Navigation.goBack(self); });
 
             setVisible(true);
         }
@@ -379,6 +388,7 @@ public class TrackMedApp {
             bottomPanel.add(backBtn);
             add(bottomPanel, BorderLayout.SOUTH);
 
+            final JFrame self = this;
             saveBtn.addActionListener(e -> {
                 for (int row = 0; row < model.getRowCount(); row++) {
                     sharedModel.setValueAt(model.getValueAt(row, 3), row, 3);
@@ -386,7 +396,7 @@ public class TrackMedApp {
                 JOptionPane.showMessageDialog(this, "Quantities updated successfully.");
             });
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> { Navigation.goBack(self); });
 
             setVisible(true);
         }
