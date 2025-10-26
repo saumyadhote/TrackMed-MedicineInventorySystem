@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+
 public class TrackMedApp {
 
     private static DefaultTableModel sharedModel;
@@ -373,7 +374,7 @@ public class TrackMedApp {
             add(new JScrollPane(table), BorderLayout.CENTER);
 
             JButton saveBtn = new JButton("Save Quantity Changes");
-            JButton backBtn = new JButton("Back to Dashboard");
+            JButton backBtn = new JButton("Back to Login");
             JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             bottomPanel.add(saveBtn);
             bottomPanel.add(backBtn);
@@ -386,7 +387,7 @@ public class TrackMedApp {
                 JOptionPane.showMessageDialog(this, "Quantities updated successfully.");
             });
 
-            backBtn.addActionListener(e -> { dispose(); new UserDashboardFrame(); });
+            backBtn.addActionListener(e -> { dispose(); new LoginFrame(); });
 
             setVisible(true);
         }
